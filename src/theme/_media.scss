@@ -1,0 +1,13 @@
+// Tablet devices
+@mixin medium {
+  @media (min-width: #{767px}) {
+    @content;
+  }
+}
+
+// Desktop devices
+@mixin large {
+  @media (min-width: #{1024px}) {
+    @content;
+  }
+}

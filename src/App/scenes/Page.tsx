@@ -1,5 +1,7 @@
 import type { FC } from "react";
 
+import "./Page.scss";
+
 interface PageProps {
   postId?: string;
 }
@@ -7,7 +9,11 @@ interface PageProps {
 const Page: FC<PageProps> = (props) => {
   const { postId, ...remainingProps } = props;
 
-  return <div {...remainingProps}>{postId}</div>;
+  return (
+    <div className="page" {...remainingProps}>
+      Content {postId}
+    </div>
+  );
 };
 
 export { Page };
