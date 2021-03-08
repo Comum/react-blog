@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import "./App.scss";
 
-import { Page } from "./scenes/Page";
+import { Content } from "./components/Content";
 
 function App() {
   const year = new Date().getFullYear();
@@ -31,7 +31,7 @@ function App() {
       <section className="main-content">
         <BrowserRouter>
           <Route path="/post">
-            <Page postId={postId} />
+            <Content postId={postId} />
           </Route>
           <Route path="/" exact>
             Home

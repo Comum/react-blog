@@ -1,0 +1,58 @@
+@import "../../../theme/media";
+
+.content {
+  width: 100%;
+  height: 100%;
+
+  padding: 10px 10px;
+  box-sizing: border-box;
+
+  display: flex;
+
+  @include medium {
+    padding: 15px 20px;
+  }
+}
+
+.content-info {
+  flex-grow: 2;
+  text-align: center;
+
+  @include large {
+    border-right: 2px solid black;
+  }
+}
+
+.content-hero {
+  max-width: 100%;
+}
+
+.content-title {
+  width: 100%;
+  height: 40px;
+
+  font-size: 25px;
+
+  text-align: center;
+}
+
+.content-aside {
+  display: none;
+
+  @include large {
+    display: block;
+    flex-grow: 1;
+  }
+}
+
+.content-posts {
+  list-style-type: none;
+
+  padding: 15px 20px;
+  margin: 0;
+}
+
+.content-post-item {
+  color: black;
+  text-decoration: none;
+}
