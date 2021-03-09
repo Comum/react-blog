@@ -60,6 +60,12 @@
 .content-slider {
   padding: 20px;
 
+  @include small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @include medium {
     float: left;
   }

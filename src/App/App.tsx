@@ -88,7 +88,7 @@ function App() {
             ) : postError ? (
               <div className="main-error-message">Post not found</div>
             ) : (
-              <Content postId={postId} {...postInformation} />
+              <Content postId={postId} posts={posts} {...postInformation} />
             )}
           </Route>
           <Route path="/" exact>
