@@ -67,3 +67,19 @@
     font-size: 18px;
   }
 }
+
+.main-post-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 10px;
+  box-sizing: border-box;
+
+  @include medium {
+    padding: 15px 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}

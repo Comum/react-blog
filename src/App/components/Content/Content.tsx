@@ -2,10 +2,7 @@ import type { FC } from "react";
 
 import "./Content.scss";
 
-interface Post {
-  id: number;
-  name: string;
-}
+import type { Post } from "../../../Types/post";
 
 interface ContentProps {
   postId?: string;
@@ -38,8 +35,8 @@ const Content: FC<ContentProps> = (props) => {
       </div>
       <aside className="content-aside">
         <ul className="content-posts">
-          {posts?.map((post: Post) => (
-            <li>
+          {posts?.map((post: Post, index: number) => (
+            <li key={index}>
               <a href={`/post?id=${post.id}`} className="content-post-item">
                 {post.name}
               </a>
