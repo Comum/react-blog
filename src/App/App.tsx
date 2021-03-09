@@ -4,10 +4,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./App.scss";
 
 import { Content } from "./components/Content";
+import { Loader } from "./components/Loader";
 
 import { fetchPost, fetchPosts } from "../Api";
 
-import type { Post } from "../Types/post";
+import type { Post, Information } from "../Types/post";
 
 function App() {
   const year = new Date().getFullYear();
@@ -15,10 +16,26 @@ function App() {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [postError, setPostError] = useState(false);
+  const [postInformation, setPostInformation] = useState<Information>({});
+
+  let postId = useMemo(() => {
+    const params = search.substring(1).split("&");
+
+    for (let param of params) {
+      if (param.includes("id")) {
+        const [_, value] = param.split("=");
+
+        return isNaN(parseInt(value, 10)) ? undefined : parseInt(value, 10);
+      }
+    }
+
+    return undefined;
+  }, [search]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function apiFetchPosts() {
-      setIsLoading(true);
       const fetchedPosts: Post[] = await fetchPosts();
 
       setPosts(fetchedPosts);
@@ -33,19 +50,26 @@ function App() {
     }
   }, [posts]);
 
-  let postId = useMemo(() => {
-    const params = search.substring(1).split("&");
+  useEffect(() => {
+    async function apiFetchPost(id: number) {
+      const fetchedInformation: Information | undefined = await fetchPost(id);
 
-    for (let param of params) {
-      if (param.includes("id")) {
-        const [_, value] = param.split("=");
-
-        return value;
+      if (!fetchedInformation) {
+        setPostError(true);
+      } else {
+        setPostInformation(fetchedInformation);
+        setPostError(false);
       }
     }
 
-    return "";
-  }, [search]);
+    if (postId) {
+      setIsLoading(true);
+
+      apiFetchPost(postId);
+    } else {
+      setPostError(true);
+    }
+  }, [postId]);
 
   return (
     <div className="main">
@@ -57,11 +81,21 @@ function App() {
       <section className="main-content">
         <BrowserRouter>
           <Route path="/post">
-            <Content postId={postId} />
+            {isLoading ? (
+              <div className="main-loader">
+                <Loader />
+              </div>
+            ) : postError ? (
+              <div className="main-error-message">Post not found</div>
+            ) : (
+              <Content postId={postId} {...postInformation} />
+            )}
           </Route>
           <Route path="/" exact>
             {isLoading ? (
-              <div>Loading</div>
+              <div className="main-loader">
+                <Loader />
+              </div>
             ) : (
               <>
                 <ul className="main-post-list">

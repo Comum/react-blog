@@ -1,7 +1,15 @@
-import type { Post } from "../Types/post";
+import type { Post, Information } from "../Types/post";
 
-const fetchPost = (id: number) => {
-  return false;
+const fetchPost = (id: number): Promise<Information> => {
+  return fetch("/data/info.json")
+    .then((res) => res.json())
+    .then((data) => {
+      if (!(id in data)) {
+        return undefined;
+      }
+
+      return data[id];
+    });
 };
 
 const fetchPosts = async (): Promise<Post[]> => {

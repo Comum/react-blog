@@ -5,7 +5,7 @@ import "./Content.scss";
 import type { Post } from "../../../Types/post";
 
 interface ContentProps {
-  postId?: string;
+  postId?: number;
   posts?: Post[];
   title?: string;
   hero?: string;
