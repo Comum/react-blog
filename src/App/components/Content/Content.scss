@@ -56,3 +56,23 @@
   color: black;
   text-decoration: none;
 }
+
+.content-slider {
+  padding: 20px;
+
+  @include medium {
+    float: left;
+  }
+}
+
+.content-area {
+  @include medium {
+    text-align: initial;
+  }
+}
+
+.content-text:last-child {
+  @include medium {
+    padding-top: 10px;
+  }
+}

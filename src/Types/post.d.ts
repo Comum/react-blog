@@ -8,4 +8,5 @@ export interface Information {
   title?: string;
   hero?: string;
   text?: string;
+  additional?: string;
 }
